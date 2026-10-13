@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suchiuchi.me 🍣✨ ¡Muy pronto!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Mali:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FFF9F2;
+      --pink-primary: #FF7096;
+      --pink-soft: #FFAFCC;
+      --green-mint: #25D366;
+      --green-kawaii: #4EBA6F;
+      --yellow-sun: #FFD166;
+      --blue-sky: #A0C4FF;
+      --dark-ink: #22223B;
+      --shadow-ink: 5px 5px 0px #22223B;
+      --shadow-ink-lg: 8px 8px 0px #22223B;
+      --shadow-ink-sm: 3px 3px 0px #22223B;
+
+      /* CURSOR PRINCIPAL: FLECHA CLÁSICA CON CUERPO + SUSHI VERTICAL AL LADO */
+      --cursor-suchi: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><polygon points='3,3 3,22 7.5,18 12.5,28 16,26.5 11,16.5 18,16.5' fill='%2322223B'/><polygon points='2,2 2,20 6.5,16.2 11.2,26 14.5,24.5 9.8,14.8 16.5,14.8' fill='%23FFFFFF' stroke='%2322223B' stroke-width='2' stroke-linejoin='round'/><rect x='19' y='7' width='12' height='18' rx='6' fill='%23FFFFFF' stroke='%2322223B' stroke-width='1.8'/><rect x='19' y='6' width='12' height='11' rx='5' fill='%23FF7096' stroke='%2322223B' stroke-width='1.8'/><path d='M20,9.5 Q25,10.8 30,9.5 M20,13.5 Q25,14.8 30,13.5' stroke='%23FFAFCC' stroke-width='1.2' stroke-linecap='round' fill='none'/><rect x='18.5' y='14' width='13' height='4.2' rx='1' fill='%2322223B'/><ellipse cx='22' cy='8.5' rx='1' ry='1.8' fill='%23FFFFFF' opacity='0.8'/></svg>");
+
+      /* CURSOR HOVER: PALILLOS JAPONESES AL INTERACTUAR */
+      --cursor-chopsticks: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>🥢</text></svg>");
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Fredoka', cursive, sans-serif;
+      background-color: #FEEBF3;
+      background-image: 
+        radial-gradient(#FFAFCC 2px, transparent 2px),
+        radial-gradient(#BDE0FE 2px, #FFF5F8 2px);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      color: var(--dark-ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 1.5rem;
+      /* CURSOR PRINCIPAL */
+      cursor: var(--cursor-suchi) 2 2, auto;
+    }
+
+    /* --- NUBES Y FONDO FLOTANTE --- */
+    .sky-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .cloud {
+      position: absolute;
+      background: #FFFFFF;
+      border: 3px solid var(--dark-ink);
+      border-radius: 50px;
+      box-shadow: var(--shadow-ink-sm);
+      opacity: 0.85;
+      animation: floatCloud linear infinite;
+    }
+
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: inherit;
+      border: 3px solid var(--dark-ink);
+      border-radius: 50%;
+    }
+
+    .cloud-1 {
+      width: 140px;
+      height: 45px;
+      top: 10%;
+      left: -150px;
+      animation-duration: 26s;
+    }
+    .cloud-1::before {
+      width: 55px;
+      height: 55px;
+      top: -25px;
+      left: 20px;
+      border-bottom: none;
+    }
+    .cloud-1::after {
+      width: 45px;
+      height: 45px;
+      top: -18px;
+      right: 25px;
+      border-bottom: none;
+    }
+
+    .cloud-2 {
+      width: 190px;
+      height: 55px;
+      top: 45%;
+      left: -200px;
+      animation-duration: 38s;
+      animation-delay: 5s;
+    }
+    .cloud-2::before {
+      width: 70px;
+      height: 70px;
+      top: -35px;
+      left: 30px;
+      border-bottom: none;
+    }
+    .cloud-2::after {
+      width: 60px;
+      height: 60px;
+      top: -25px;
+      right: 35px;
+      border-bottom: none;
+    }
+
+    .cloud-3 {
+      width: 120px;
+      height: 40px;
+      bottom: 15%;
+      left: -140px;
+      animation-duration: 30s;
+      animation-delay: 12s;
+    }
+    .cloud-3::before {
+      width: 45px;
+      height: 45px;
+      top: -20px;
+      left: 15px;
+      border-bottom: none;
+    }
+
+    @keyframes floatCloud {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(100vw + 250px)); }
+    }
+
+    /* --- SUSHIS FLOTANTES --- */
+    .sushi-float-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .floating-sushi {
+      position: absolute;
+      opacity: 0.9;
+      animation: floatSushi linear infinite;
+      filter: drop-shadow(var(--shadow-ink-sm));
+    }
+
+    .sushi-item-1 {
+      top: 25%;
+      right: -100px;
+      font-size: 3.5rem;
+      animation-duration: 22s;
+    }
+
+    .sushi-item-2 {
+      top: 70%;
+      right: -100px;
+      font-size: 2.8rem;
+      animation-duration: 35s;
+      animation-delay: 6s;
+    }
+
+    .sushi-item-3 {
+      bottom: 25%;
+      right: -100px;
+      font-size: 3rem;
+      animation-duration: 28s;
+      animation-delay: 14s;
+    }
+
+    .sushi-item-4 {
+      top: 15%;
+      right: -100px;
+      font-size: 3rem;
+      animation-duration: 25s;
+      animation-delay: 4s;
+    }
+
+    .sushi-item-5 {
+      top: 52%;
+      right: -100px;
+      font-size: 2.7rem;
+      animation-duration: 32s;
+      animation-delay: 11s;
+    }
+
+    @keyframes floatSushi {
+      0% { transform: translateX(0) rotate(0deg); }
+      100% { transform: translateX(calc(-100vw - 200px)) rotate(-15deg); }
+    }
+
+    /* --- STICKERS FLOTANTES --- */
+    .sticker {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+      border: 3px solid var(--dark-ink);
+      border-radius: 20px;
+      padding: 0.6rem 0.9rem;
+      font-size: 1.4rem;
+      box-shadow: var(--shadow-ink);
+      cursor: var(--cursor-chopsticks) 4 20, pointer;
+      z-index: 5;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: floatWobble 4s ease-in-out infinite alternate;
+    }
+
+    .sticker:hover, .sticker:active {
+      transform: scale(1.2) rotate(-8deg) !important;
+      cursor: var(--cursor-chopsticks) 4 20, pointer;
+    }
+
+    .st-sushi {
+      top: 8%;
+      right: 12%;
+      background: #FFF3B0;
+      animation-duration: 3.2s;
+    }
+    .st-dog {
+      bottom: 12%;
+      left: 8%;
+      background: #E8DFF5;
+      animation-duration: 4.5s;
+    }
+    .st-game {
+      bottom: 16%;
+      right: 10%;
+      background: #D8F3DC;
+      animation-duration: 3.8s;
+    }
+    .st-heart {
+      top: 14%;
+      left: 10%;
+      background: #FFCAD4;
+      animation-duration: 4.1s;
+    }
+
+    @keyframes floatWobble {
+      0% { transform: translateY(0px) rotate(-3deg); }
+      100% { transform: translateY(-15px) rotate(4deg); }
+    }
+
+    /* --- BRILLITOS SPARKS --- */
+    .spark {
+      position: absolute;
+      color: #FFB703;
+      font-size: 1.6rem;
+      animation: sparkle 2s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes sparkle {
+      0% { transform: scale(0.6) rotate(0deg); opacity: 0.4; }
+      100% { transform: scale(1.2) rotate(45deg); opacity: 1; }
+    }
+
+    /* --- TARJETA PRINCIPAL NEUBRUTALISM --- */
+    .main-card {
+      position: relative;
+      z-index: 10;
+      background: #FCFCFC;
+      border: 4px solid var(--dark-ink);
+      border-radius: 36px;
+      box-shadow: var(--shadow-ink-lg);
+      padding: 2.2rem 2rem;
+      max-width: 580px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: cardPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes cardPop {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* CHIP SUPERIOR */
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--yellow-sun);
+      color: var(--dark-ink);
+      border: 3px solid var(--dark-ink);
+      border-radius: 999px;
+      padding: 0.35rem 1.1rem;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      box-shadow: var(--shadow-ink-sm);
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+    }
+
+    /* CONTENEDOR DEL LOGO */
+    .logo-frame {
+      position: relative;
+      width: 340px; 
+      height: 340px;
+      margin: 0.5rem auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      animation: cuteBounce 3s ease-in-out infinite;
+      cursor: var(--cursor-chopsticks) 4 20, pointer;
+      transition: transform 0.25s ease;
+    }
+
+    .logo-img:hover {
+      transform: scale(1.08) rotate(-2deg);
+      cursor: var(--cursor-chopsticks) 4 20, pointer;
+    }
+
+    @keyframes cuteBounce {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-12px) rotate(1.5deg);
+      }
+    }
+
+    /* TITULARES */
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--pink-primary);
+      text-shadow: 2px 2px 0px var(--dark-ink);
+      -webkit-text-stroke: 1.5px var(--dark-ink);
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+    }
+
+    .subtitle {
+      font-family: 'Mali', cursive;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #555B6E;
+      line-height: 1.4;
+      margin-bottom: 1.6rem;
+    }
+
+    .subtitle span {
+      color: var(--green-kawaii);
+      font-weight: 800;
+    }
+
+    /* BARRA DE ENERGÍA / CARGA */
+    .status-box {
+      width: 100%;
+      background: #F8F9FA;
+      border: 3px solid var(--dark-ink);
+      border-radius: 20px;
+      padding: 1rem 1.2rem;
+      box-shadow: var(--shadow-ink-sm);
+      margin-bottom: 1.5rem;
+    }
+
+    .status-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 22px;
+      background: #E9ECEF;
+      border: 2px solid var(--dark-ink);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      width: 78%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        45deg,
+        var(--pink-soft),
+        var(--pink-soft) 12px,
+        var(--pink-primary) 12px,
+        var(--pink-primary) 24px
+      );
+      border-radius: 999px;
+      transition: width 0.4s ease;
+      animation: moveStripes 2s linear infinite;
+    }
+
+    @keyframes moveStripes {
+      0% { background-position: 0 0; }
+      100% { background-position: 48px 0; }
+    }
+
+    /* BOTONES DE ACCIÓN */
+    .button-group {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .btn-kawaii {
+      font-family: 'Fredoka', cursive;
+      font-size: 1.05rem;
+      font-weight: 800;
+      border: 3px solid var(--dark-ink);
+      border-radius: 18px;
+      padding: 0.85rem 1.5rem;
+      cursor: var(--cursor-chopsticks) 4 20, pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: var(--shadow-ink);
+      transition: all 0.15s ease;
+    }
+
+    .btn-kawaii:hover {
+      cursor: var(--cursor-chopsticks) 4 20, pointer;
+    }
+
+    .btn-primary {
+      background: var(--yellow-sun);
+      color: var(--dark-ink);
+    }
+
+    .btn-primary:hover {
+      background: #FFE082;
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0px var(--dark-ink);
+    }
+
+    .btn-primary:active {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0px var(--dark-ink);
+    }
+
+    .btn-secondary {
+      background: #E2ECE9;
+      color: var(--dark-ink);
+    }
+
+    .btn-secondary:hover {
+      background: #D8F3DC;
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0px var(--dark-ink);
+    }
+
+    .btn-secondary:active {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0px var(--dark-ink);
+    }
+
+    /* CONTADOR DE MIMOS / AMOR */
+    .cheer-counter {
+      margin-top: 1.1rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #6C757D;
+    }
+    .cheer-counter strong {
+      color: var(--pink-primary);
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 10;
+      margin-top: 1.6rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #4A4E69;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* POPPING EMOJIS ANIMATION */
+    .burst-emoji {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+      font-size: 1.8rem;
+      animation: flyUp 1.2s ease-out forwards;
+    }
+
+    @keyframes flyUp {
+      0% {
+        transform: translate(0, 0) scale(0.6) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--dx), var(--dy)) scale(1.4) rotate(var(--dr));
+        opacity: 0;
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .main-card {
+        padding: 1.8rem 1.2rem;
+        border-radius: 28px;
+      }
+      .logo-frame {
+        width: 260px;
+        height: 260px;
+      }
+      h1 {
+        font-size: 1.9rem;
+      }
+      .sticker {
+        font-size: 1.1rem;
+        padding: 0.4rem 0.7rem;
+      }
+      .st-sushi { top: 3%; right: 4%; }
+      .st-dog { bottom: 3%; left: 4%; }
+      .st-heart { top: 3%; left: 4%; }
+      .st-game { bottom: 3%; right: 4%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CIELO CON NUBES ANIMADAS -->
+  <div class="sky-container">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+  </div>
+
+  <!-- SUSHIS FLOTANTES -->
+  <div class="sushi-float-container">
+    <div class="floating-sushi sushi-item-1">🍣</div>
+    <div class="floating-sushi sushi-item-2">🍙</div>
+    <div class="floating-sushi sushi-item-3">🍱</div>
+    <div class="floating-sushi sushi-item-4">🍥</div>
+    <div class="floating-sushi sushi-item-5">🍤</div>
+  </div>
+
+  <!-- DECORACIÓN BRILLOS -->
+  <div class="spark" style="top: 18%; left: 24%;">✦</div>
+  <div class="spark" style="top: 25%; right: 22%; animation-delay: 0.8s;">✨</div>
+  <div class="spark" style="bottom: 22%; left: 20%; animation-delay: 1.2s;">★</div>
+  <div class="spark" style="bottom: 28%; right: 25%; animation-delay: 0.4s;">✦</div>
+
+  <!-- STICKERS INTERACTIVOS DE ESQUINAS -->
+  <div class="sticker st-heart" title="¡Mucho amor kawaii!" onclick="burst(event, ['💖', '💕', '🌸'])">
+    💖 <span>Kawaii</span>
+  </div>
+
+  <div class="sticker st-sushi" title="¡Sushi con patitas!" onclick="burst(event, ['🍣', '🥢', '🍙'])">
+    🍣🐾 <span>Suchi</span>
+  </div>
+
+  <div class="sticker st-game" title="¡Muchos juegos en camino!" onclick="burst(event, ['🎮', '🕹️', '⭐'])">
+    🎮 <span>Juegos</span>
+  </div>
+
+  <div class="sticker st-dog" title="¡Un perrito feliz!" onclick="burst(event, ['🐶', '🐾', '🦴'])">
+    🐶 <span>Perrito</span>
+  </div>
+
+  <!-- TARJETA CENTRAL TIPO TOONFOLIO -->
+  <main class="main-card">
+    
+    <!-- BADGE SUPERIOR -->
+    <div class="tag-badge">
+      <span>🚀</span> En Construcción por Suchiuchi
+    </div>
+
+    <!-- LOGO FLOTANTE LIMPIO -->
+    <div class="logo-frame">
+      <img 
+        src="./logo-suchiuchi.png" 
+        alt="Logo de Suchiuchi" 
+        class="logo-img" 
+        id="suchiLogo"
+        title="¡Haz clic en mí!"
+      />
+    </div>
+
+    <!-- TÍTULOS -->
+    <h1>suchiuchi.me</h1>
+    <p class="subtitle">
+      Mi propio rincón kawaii de <span>videojuegos</span><br>
+    </p>
+
+    <!-- BARRA DE PREPARACIÓN -->
+    <div class="status-box">
+      <div class="status-labels">
+        <span>🍙 Cocinando juegos divertidos...</span>
+        <span id="percentText">85%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+    </div>
+
+    <!-- BOTONERA INTERACTIVA -->
+    <div class="button-group">
+      <button class="btn-kawaii btn-primary" id="btnCheer">
+        <span>✨</span> ¡Mandar Cariño!
+      </button>
+      <button class="btn-kawaii btn-secondary" id="btnSound">
+        <span>🔔</span> Avisadme al abrir
+      </button>
+    </div>
+
+    <div class="cheer-counter">
+      Has mandado <strong id="cheerCount">0</strong> abrazos kawaii a Suchiuchi 🍣💕
+    </div>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <span>💖</span> Hecho con ilusión por Papá y Suchiuchi • 2026
+  </footer>
+
+  <script>
+    // ELEMENTOS
+    const btnCheer = document.getElementById('btnCheer');
+    const btnSound = document.getElementById('btnSound');
+    const cheerCountEl = document.getElementById('cheerCount');
+    const progressBar = document.getElementById('progressBar');
+    const percentText = document.getElementById('percentText');
+    const logoImg = document.getElementById('suchiLogo');
+
+    let cheerCount = 0;
+    let currentPercent = 85;
+
+    // BOTÓN: MANDAR CARIÑO (EXPLOSIÓN DE EMOJIS + SUBE LA BARRA)
+    btnCheer.addEventListener('click', (e) => {
+      cheerCount++;
+      cheerCountEl.textContent = cheerCount;
+
+      // Efecto sonoro visual / confeti
+      const emojis = ['💖', '🍣', '🌸', '✨', '🐾', '🐶', '🍙', '⭐', '🦄'];
+      burst(e, emojis);
+
+      // Subir ligeramente la barra de energía
+      if (currentPercent < 100) {
+        currentPercent = Math.min(100, currentPercent + 1);
+        progressBar.style.width = currentPercent + '%';
+        percentText.textContent = currentPercent + '%';
+      }
+
+      // Pequeño temblor al logo
+      logoImg.style.transform = 'scale(1.15) rotate(' + (Math.random() > 0.5 ? 8 : -8) + 'deg)';
+      setTimeout(() => {
+        logoImg.style.transform = '';
+      }, 250);
+    });
+
+    // BOTÓN: AVISADME
+    btnSound.addEventListener('click', (e) => {
+      burst(e, ['💌', '🔔', '✨', '🎉']);
+      alert('¡Anotado! 💌 Guarda suchiuchi.me en tus favoritos porque dentro de muy poco estará lista la sala de juegos.');
+    });
+
+    // CLIC EN EL LOGO
+    logoImg.addEventListener('click', (e) => {
+      burst(e, ['🍣', '🍙', '✨', '💖']);
+    });
+
+    // FUNCIÓN DE EXPLOSIÓN DE EMOJIS (PARTÍCULAS)
+    function burst(event, emojiList) {
+      const rect = event.target.getBoundingClientRect();
+      const originX = event.clientX || (rect.left + rect.width / 2);
+      const originY = event.clientY || (rect.top + rect.height / 2);
+
+      const count = 12;
+      for (let i = 0; i < count; i++) {
+        const span = document.createElement('span');
+        span.className = 'burst-emoji';
+        span.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = 80 + Math.random() * 120;
+        const dx = Math.cos(angle) * distance + 'px';
+        const dy = (Math.sin(angle) * distance - 40) + 'px';
+        const dr = (Math.random() * 360 - 180) + 'deg';
+
+        span.style.left = originX + 'px';
+        span.style.top = originY + 'px';
+        span.style.setProperty('--dx', dx);
+        span.style.setProperty('--dy', dy);
+        span.style.setProperty('--dr', dr);
+
+        document.body.appendChild(span);
+
+        setTimeout(() => {
+          span.remove();
+        }, 1200);
+      }
+    }
+  </script>
+</body>
+</html>
