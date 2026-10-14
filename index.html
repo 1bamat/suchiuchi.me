@@ -2,21 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Suchiuchi.me 🍣✨</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Suchiuchi.me 🍣✨ ¡Muy pronto!</title>
 
-  <!-- FAVICON: PASTEL DE PESCADO CON ESPIRAL (NARUTOMAKI) -->
+  <!-- SEO / REDES -->
+  <meta name="description" content="El rincón kawaii de videojuegos de Suchiuchi. ¡Muy pronto abrimos la sala de juegos!" />
+  <meta name="theme-color" content="#FF7096" />
+  <link rel="canonical" href="https://suchiuchi.me/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://suchiuchi.me/" />
+  <meta property="og:title" content="Suchiuchi.me 🍣✨ ¡Muy pronto!" />
+  <meta property="og:description" content="Mi propio rincón kawaii de videojuegos. ¡Estamos cocinando juegos divertidos!" />
+  <meta property="og:image" content="https://suchiuchi.me/logo-suchiuchi.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- FAVICON: NARUTOMAKI -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍥</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Mali:wght@500;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg-cream: #FFF9F2;
       --pink-primary: #FF7096;
       --pink-soft: #FFAFCC;
-      --green-mint: #25D366;
       --green-kawaii: #4EBA6F;
       --yellow-sun: #FFD166;
       --blue-sky: #A0C4FF;
@@ -25,10 +36,7 @@
       --shadow-ink-lg: 8px 8px 0px #22223B;
       --shadow-ink-sm: 3px 3px 0px #22223B;
 
-      /* CURSOR PRINCIPAL: FLECHA CLÁSICA CON CUERPO + SUSHI VERTICAL AL LADO */
-      --cursor-suchi: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><polygon points='3,3 3,22 7.5,18 12.5,28 16,26.5 11,16.5 18,16.5' fill='%2322223B'/><polygon points='2,2 2,20 6.5,16.2 11.2,26 14.5,24.5 9.8,14.8 16.5,14.8' fill='%23FFFFFF' stroke='%2322223B' stroke-width='2' stroke-linejoin='round'/><rect x='19' y='7' width='12' height='18' rx='6' fill='%23FFFFFF' stroke='%2322223B' stroke-width='1.8'/><rect x='19' y='6' width='12' height='11' rx='5' fill='%23FF7096' stroke='%2322223B' stroke-width='1.8'/><path d='M20,9.5 Q25,10.8 30,9.5 M20,13.5 Q25,14.8 30,13.5' stroke='%23FFAFCC' stroke-width='1.2' stroke-linecap='round' fill='none'/><rect x='18.5' y='14' width='13' height='4.2' rx='1' fill='%2322223B'/><ellipse cx='22' cy='8.5' rx='1' ry='1.8' fill='%23FFFFFF' opacity='0.8'/></svg>");
-
-      /* CURSOR HOVER: PALILLOS JAPONESES AL INTERACTUAR */
+      /* Cursor de palillos: solo en elementos interactivos */
       --cursor-chopsticks: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>🥢</text></svg>");
     }
 
@@ -36,19 +44,25 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      user-select: none;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      overflow-x: hidden;
     }
 
     body {
-      font-family: 'Fredoka', cursive, sans-serif;
+      font-family: 'Fredoka', system-ui, sans-serif;
       background-color: #FEEBF3;
-      background-image: 
+      background-image:
         radial-gradient(#FFAFCC 2px, transparent 2px),
         radial-gradient(#BDE0FE 2px, #FFF5F8 2px);
       background-size: 40px 40px;
       background-position: 0 0, 20px 20px;
       color: var(--dark-ink);
       min-height: 100vh;
+      min-height: 100dvh;
       overflow-x: hidden;
       display: flex;
       flex-direction: column;
@@ -56,11 +70,19 @@
       justify-content: center;
       position: relative;
       padding: 1.5rem;
-      /* CURSOR PRINCIPAL */
-      cursor: var(--cursor-suchi) 2 2, auto;
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+      padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
     }
 
-    /* --- NUBES Y FONDO FLOTANTE --- */
+    /* Solo lo "pulsable" no se puede seleccionar */
+    button, .sticker, .logo-img {
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* --- NUBES --- */
     .sky-container {
       position: fixed;
       inset: 0;
@@ -87,69 +109,19 @@
       border-radius: 50%;
     }
 
-    .cloud-1 {
-      width: 140px;
-      height: 45px;
-      top: 10%;
-      left: -150px;
-      animation-duration: 26s;
-    }
-    .cloud-1::before {
-      width: 55px;
-      height: 55px;
-      top: -25px;
-      left: 20px;
-      border-bottom: none;
-    }
-    .cloud-1::after {
-      width: 45px;
-      height: 45px;
-      top: -18px;
-      right: 25px;
-      border-bottom: none;
-    }
+    .cloud-1 { width: 140px; height: 45px; top: 10%; left: -150px; animation-duration: 26s; }
+    .cloud-1::before { width: 55px; height: 55px; top: -25px; left: 20px; border-bottom: none; }
+    .cloud-1::after  { width: 45px; height: 45px; top: -18px; right: 25px; border-bottom: none; }
 
-    .cloud-2 {
-      width: 190px;
-      height: 55px;
-      top: 45%;
-      left: -200px;
-      animation-duration: 38s;
-      animation-delay: 5s;
-    }
-    .cloud-2::before {
-      width: 70px;
-      height: 70px;
-      top: -35px;
-      left: 30px;
-      border-bottom: none;
-    }
-    .cloud-2::after {
-      width: 60px;
-      height: 60px;
-      top: -25px;
-      right: 35px;
-      border-bottom: none;
-    }
+    .cloud-2 { width: 190px; height: 55px; top: 45%; left: -200px; animation-duration: 38s; animation-delay: 5s; }
+    .cloud-2::before { width: 70px; height: 70px; top: -35px; left: 30px; border-bottom: none; }
+    .cloud-2::after  { width: 60px; height: 60px; top: -25px; right: 35px; border-bottom: none; }
 
-    .cloud-3 {
-      width: 120px;
-      height: 40px;
-      bottom: 15%;
-      left: -140px;
-      animation-duration: 30s;
-      animation-delay: 12s;
-    }
-    .cloud-3::before {
-      width: 45px;
-      height: 45px;
-      top: -20px;
-      left: 15px;
-      border-bottom: none;
-    }
+    .cloud-3 { width: 120px; height: 40px; bottom: 15%; left: -140px; animation-duration: 30s; animation-delay: 12s; }
+    .cloud-3::before { width: 45px; height: 45px; top: -20px; left: 15px; border-bottom: none; }
 
     @keyframes floatCloud {
-      0% { transform: translateX(0); }
+      0%   { transform: translateX(0); }
       100% { transform: translateX(calc(100vw + 250px)); }
     }
 
@@ -164,61 +136,48 @@
 
     .floating-sushi {
       position: absolute;
+      right: -100px;
       opacity: 0.9;
       animation: floatSushi linear infinite;
       filter: drop-shadow(var(--shadow-ink-sm));
     }
 
-    .sushi-item-1 {
-      top: 25%;
-      right: -100px;
-      font-size: 3.5rem;
-      animation-duration: 22s;
-    }
-
-    .sushi-item-2 {
-      top: 70%;
-      right: -100px;
-      font-size: 2.8rem;
-      animation-duration: 35s;
-      animation-delay: 6s;
-    }
-
-    .sushi-item-3 {
-      bottom: 25%;
-      right: -100px;
-      font-size: 3rem;
-      animation-duration: 28s;
-      animation-delay: 14s;
-    }
-
-    .sushi-item-4 {
-      top: 15%;
-      right: -100px;
-      font-size: 3rem;
-      animation-duration: 25s;
-      animation-delay: 4s;
-    }
-
-    .sushi-item-5 {
-      top: 52%;
-      right: -100px;
-      font-size: 2.7rem;
-      animation-duration: 32s;
-      animation-delay: 11s;
-    }
+    .sushi-item-1 { top: 25%;    font-size: 3.5rem; animation-duration: 22s; }
+    .sushi-item-2 { top: 70%;    font-size: 2.8rem; animation-duration: 35s; animation-delay: 6s; }
+    .sushi-item-3 { bottom: 25%; font-size: 3rem;   animation-duration: 28s; animation-delay: 14s; }
+    .sushi-item-4 { top: 15%;    font-size: 3rem;   animation-duration: 25s; animation-delay: 4s; }
+    .sushi-item-5 { top: 52%;    font-size: 2.7rem; animation-duration: 32s; animation-delay: 11s; }
 
     @keyframes floatSushi {
-      0% { transform: translateX(0) rotate(0deg); }
+      0%   { transform: translateX(0) rotate(0deg); }
       100% { transform: translateX(calc(-100vw - 200px)) rotate(-15deg); }
     }
 
-    /* --- STICKERS FLOTANTES --- */
+    /* --- BRILLITOS --- */
+    .spark {
+      position: absolute;
+      color: #FFB703;
+      font-size: 1.6rem;
+      animation: sparkle 2s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes sparkle {
+      0%   { transform: scale(0.6) rotate(0deg); opacity: 0.4; }
+      100% { transform: scale(1.2) rotate(45deg); opacity: 1; }
+    }
+
+    /* --- STICKERS (botones) --- */
+    .stickers { display: contents; } /* en escritorio flotan por las esquinas */
+
     .sticker {
       position: absolute;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 0.3rem;
+      font-family: inherit;
+      color: var(--dark-ink);
       background: #FFFFFF;
       border: 3px solid var(--dark-ink);
       border-radius: 20px;
@@ -231,59 +190,25 @@
       animation: floatWobble 4s ease-in-out infinite alternate;
     }
 
-    .sticker:hover, .sticker:active {
+    .sticker:hover, .sticker:active, .sticker:focus-visible {
       transform: scale(1.2) rotate(-8deg) !important;
-      cursor: var(--cursor-chopsticks) 4 20, pointer;
     }
 
-    .st-sushi {
-      top: 8%;
-      right: 12%;
-      background: #FFF3B0;
-      animation-duration: 3.2s;
-    }
-    .st-dog {
-      bottom: 12%;
-      left: 8%;
-      background: #E8DFF5;
-      animation-duration: 4.5s;
-    }
-    .st-game {
-      bottom: 16%;
-      right: 10%;
-      background: #D8F3DC;
-      animation-duration: 3.8s;
-    }
-    .st-heart {
-      top: 14%;
-      left: 10%;
-      background: #FFCAD4;
-      animation-duration: 4.1s;
-    }
+    .st-sushi { top: 8%;     right: 12%; background: #FFF3B0; animation-duration: 3.2s; }
+    .st-dog   { bottom: 12%; left: 8%;   background: #E8DFF5; animation-duration: 4.5s; }
+    .st-game  { bottom: 16%; right: 10%; background: #D8F3DC; animation-duration: 3.8s; }
+    .st-heart { top: 14%;    left: 10%;  background: #FFCAD4; animation-duration: 4.1s; }
 
     @keyframes floatWobble {
-      0% { transform: translateY(0px) rotate(-3deg); }
+      0%   { transform: translateY(0px) rotate(-3deg); }
       100% { transform: translateY(-15px) rotate(4deg); }
     }
 
-    /* --- BRILLITOS SPARKS --- */
-    .spark {
-      position: absolute;
-      color: #FFB703;
-      font-size: 1.6rem;
-      animation: sparkle 2s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
-    @keyframes sparkle {
-      0% { transform: scale(0.6) rotate(0deg); opacity: 0.4; }
-      100% { transform: scale(1.2) rotate(45deg); opacity: 1; }
-    }
-
-    /* --- TARJETA PRINCIPAL NEUBRUTALISM --- */
+    /* --- TARJETA PRINCIPAL --- */
     .main-card {
       position: relative;
       z-index: 10;
-      background: #FCFCFC;
+      background: #FDFDFD;
       border: 4px solid var(--dark-ink);
       border-radius: 36px;
       box-shadow: var(--shadow-ink-lg);
@@ -298,19 +223,19 @@
     }
 
     @keyframes cardPop {
-      0% { transform: scale(0.85); opacity: 0; }
+      0%   { transform: scale(0.85); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
 
-    /* CHIP SUPERIOR */
     .tag-badge {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
       background: var(--yellow-sun);
       color: var(--dark-ink);
       border: 3px solid var(--dark-ink);
-      border-radius: 999px;
+      border-radius: 24px;
       padding: 0.35rem 1.1rem;
       font-size: 0.95rem;
       font-weight: 800;
@@ -318,68 +243,68 @@
       box-shadow: var(--shadow-ink-sm);
       margin-bottom: 1.2rem;
       text-transform: uppercase;
+      max-width: 100%;
     }
 
-    /* CONTENEDOR DEL LOGO */
+    /* El rebote va en el contenedor; la imagen queda libre para hover/clic */
     .logo-frame {
-      position: relative;
-      width: 340px; 
-      height: 340px;
+      width: min(340px, 78vw, 46vh);
+      aspect-ratio: 1 / 1;
       margin: 0.5rem auto 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      animation: cuteBounce 3s ease-in-out infinite;
     }
 
     .logo-img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      animation: cuteBounce 3s ease-in-out infinite;
       cursor: var(--cursor-chopsticks) 4 20, pointer;
       transition: transform 0.25s ease;
     }
 
-    .logo-img:hover {
-      transform: scale(1.08) rotate(-2deg);
-      cursor: var(--cursor-chopsticks) 4 20, pointer;
-    }
+    .logo-img:hover { transform: scale(1.08) rotate(-2deg); }
+
+    .logo-img.wiggle { animation: wiggle 0.4s ease; }
 
     @keyframes cuteBounce {
-      0%, 100% {
-        transform: translateY(0px) rotate(0deg);
-      }
-      50% {
-        transform: translateY(-12px) rotate(1.5deg);
-      }
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%      { transform: translateY(-12px) rotate(1.5deg); }
     }
 
-    /* TITULARES */
+    @keyframes wiggle {
+      0%   { transform: scale(1) rotate(0deg); }
+      30%  { transform: scale(1.15) rotate(8deg); }
+      65%  { transform: scale(1.15) rotate(-8deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
     h1 {
-      font-size: 2.3rem;
+      font-size: clamp(1.7rem, 7vw, 2.3rem);
       font-weight: 800;
       color: var(--pink-primary);
       text-shadow: 2px 2px 0px var(--dark-ink);
       -webkit-text-stroke: 1.5px var(--dark-ink);
+      paint-order: stroke fill;
       letter-spacing: 0.5px;
       margin-bottom: 0.4rem;
+      overflow-wrap: anywhere;
     }
 
     .subtitle {
-      font-family: 'Mali', cursive;
-      font-size: 1.15rem;
+      font-family: 'Mali', 'Fredoka', cursive;
+      font-size: clamp(1rem, 3.8vw, 1.15rem);
       font-weight: 700;
       color: #555B6E;
       line-height: 1.4;
       margin-bottom: 1.6rem;
     }
 
-    .subtitle span {
-      color: var(--green-kawaii);
-      font-weight: 800;
-    }
+    .subtitle span { color: var(--green-kawaii); font-weight: 800; }
 
-    /* BARRA DE ENERGÍA / CARGA */
+    /* --- BARRA DE PROGRESO --- */
     .status-box {
       width: 100%;
       background: #F8F9FA;
@@ -393,6 +318,8 @@
     .status-labels {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.2rem 0.8rem;
       font-size: 0.9rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
@@ -405,11 +332,10 @@
       border: 2px solid var(--dark-ink);
       border-radius: 999px;
       overflow: hidden;
-      position: relative;
     }
 
     .progress-bar-fill {
-      width: 78%;
+      width: 85%;
       height: 100%;
       background: repeating-linear-gradient(
         45deg,
@@ -424,11 +350,11 @@
     }
 
     @keyframes moveStripes {
-      0% { background-position: 0 0; }
+      0%   { background-position: 0 0; }
       100% { background-position: 48px 0; }
     }
 
-    /* BOTONES DE ACCIÓN */
+    /* --- BOTONES --- */
     .button-group {
       display: flex;
       gap: 0.8rem;
@@ -438,12 +364,15 @@
     }
 
     .btn-kawaii {
-      font-family: 'Fredoka', cursive;
+      flex: 1 1 200px;
+      justify-content: center;
+      font-family: inherit;
       font-size: 1.05rem;
       font-weight: 800;
+      color: var(--dark-ink);
       border: 3px solid var(--dark-ink);
       border-radius: 18px;
-      padding: 0.85rem 1.5rem;
+      padding: 0.85rem 1.2rem;
       cursor: var(--cursor-chopsticks) 4 20, pointer;
       display: inline-flex;
       align-items: center;
@@ -452,54 +381,31 @@
       transition: all 0.15s ease;
     }
 
-    .btn-kawaii:hover {
-      cursor: var(--cursor-chopsticks) 4 20, pointer;
+    .btn-primary { background: var(--yellow-sun); }
+    .btn-secondary { background: #E2ECE9; }
+
+    .btn-kawaii:focus-visible, .sticker:focus-visible, .logo-img:focus-visible {
+      outline: 4px solid var(--blue-sky);
+      outline-offset: 3px;
     }
 
-    .btn-primary {
-      background: var(--yellow-sun);
-      color: var(--dark-ink);
+    @media (hover: hover) {
+      .btn-primary:hover   { background: #FFE082; transform: translate(-2px, -2px); box-shadow: 7px 7px 0px var(--dark-ink); }
+      .btn-secondary:hover { background: #D8F3DC; transform: translate(-2px, -2px); box-shadow: 7px 7px 0px var(--dark-ink); }
     }
 
-    .btn-primary:hover {
-      background: #FFE082;
-      transform: translate(-2px, -2px);
-      box-shadow: 7px 7px 0px var(--dark-ink);
-    }
+    .btn-kawaii:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0px var(--dark-ink); }
 
-    .btn-primary:active {
-      transform: translate(3px, 3px);
-      box-shadow: 2px 2px 0px var(--dark-ink);
-    }
-
-    .btn-secondary {
-      background: #E2ECE9;
-      color: var(--dark-ink);
-    }
-
-    .btn-secondary:hover {
-      background: #D8F3DC;
-      transform: translate(-2px, -2px);
-      box-shadow: 7px 7px 0px var(--dark-ink);
-    }
-
-    .btn-secondary:active {
-      transform: translate(3px, 3px);
-      box-shadow: 2px 2px 0px var(--dark-ink);
-    }
-
-    /* CONTADOR DE MIMOS / AMOR */
     .cheer-counter {
       margin-top: 1.1rem;
       font-size: 0.95rem;
       font-weight: 700;
       color: #6C757D;
     }
-    .cheer-counter strong {
-      color: var(--pink-primary);
-    }
 
-    /* FOOTER */
+    .cheer-counter strong { color: var(--pink-primary); }
+
+    /* --- FOOTER --- */
     footer {
       position: relative;
       z-index: 10;
@@ -509,10 +415,34 @@
       color: #4A4E69;
       display: flex;
       align-items: center;
+      justify-content: center;
+      text-align: center;
       gap: 0.4rem;
     }
 
-    /* POPPING EMOJIS ANIMATION */
+    /* --- AVISO (toast) --- */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(1.2rem, env(safe-area-inset-bottom));
+      transform: translate(-50%, 150%);
+      z-index: 1000;
+      width: max-content;
+      max-width: calc(100vw - 2rem);
+      background: #FFFFFF;
+      border: 3px solid var(--dark-ink);
+      border-radius: 18px;
+      box-shadow: var(--shadow-ink);
+      padding: 0.8rem 1.1rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-align: center;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .toast.show { transform: translate(-50%, 0); }
+
+    /* --- PARTÍCULAS --- */
     .burst-emoji {
       position: fixed;
       pointer-events: none;
@@ -522,51 +452,109 @@
     }
 
     @keyframes flyUp {
-      0% {
-        transform: translate(0, 0) scale(0.6) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translate(var(--dx), var(--dy)) scale(1.4) rotate(var(--dr));
-        opacity: 0;
-      }
+      0%   { transform: translate(0, 0) scale(0.6) rotate(0deg); opacity: 1; }
+      100% { transform: translate(var(--dx), var(--dy)) scale(1.4) rotate(var(--dr)); opacity: 0; }
     }
 
-    /* RESPONSIVE */
+    /* --- RESPONSIVO --- */
+
+    /* Tablet y móvil: los stickers pasan a una fila bajo la tarjeta
+       (así nunca tapan el contenido) */
+    @media (max-width: 900px) {
+      .stickers {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+        margin-top: 1.6rem;
+        position: relative;
+        z-index: 10;
+      }
+      .sticker { position: static; font-size: 1.15rem; padding: 0.45rem 0.8rem; }
+      .spark { display: none; }
+    }
+
     @media (max-width: 640px) {
+      body { padding: 1rem; padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
+      .main-card { padding: 1.6rem 1.1rem; border-radius: 28px; box-shadow: 6px 6px 0px var(--dark-ink); }
+      .tag-badge { font-size: 0.8rem; padding: 0.3rem 0.8rem; }
+      .status-box { padding: 0.8rem 0.9rem; }
+      .btn-kawaii { flex-basis: 100%; }
+      .floating-sushi { font-size: 2.2rem !important; }
+    }
+
+    @media (max-width: 360px) {
+      .status-labels { font-size: 0.8rem; }
+      .cheer-counter { font-size: 0.85rem; }
+      footer { font-size: 0.85rem; }
+    }
+
+    /* Móvil en vertical: solo la tarjeta, compacta y sin decoración flotante.
+       Pensado para que los dos botones se vean sin hacer scroll. */
+    @media (max-width: 640px) and (orientation: portrait) {
+      .sky-container,
+      .sushi-float-container,
+      .spark,
+      .stickers { display: none; }
+
+      body {
+        padding: 0.75rem;
+        padding-left: max(0.75rem, env(safe-area-inset-left));
+        padding-right: max(0.75rem, env(safe-area-inset-right));
+        padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+      }
+
       .main-card {
-        padding: 1.8rem 1.2rem;
-        border-radius: 28px;
+        padding: 1.1rem 1rem;
+        border-radius: 24px;
+        border-width: 3px;
+        box-shadow: 5px 5px 0px var(--dark-ink);
       }
-      .logo-frame {
-        width: 260px;
-        height: 260px;
+
+      .tag-badge { font-size: 0.72rem; padding: 0.25rem 0.7rem; margin-bottom: 0.6rem; }
+
+      .logo-frame { width: min(58vw, 28dvh); margin: 0.7rem auto 0.2rem; }
+
+      h1 { font-size: clamp(1.5rem, 8vw, 1.9rem); margin-bottom: 0.2rem; }
+
+      .subtitle { font-size: 1rem; margin-bottom: 0.9rem; }
+
+      .status-box { padding: 0.6rem 0.8rem; margin-bottom: 0.9rem; border-radius: 16px; }
+      .status-labels { font-size: 0.8rem; margin-bottom: 0.35rem; }
+      .progress-bar-bg { height: 18px; }
+
+      .button-group { gap: 0.6rem; }
+      .btn-kawaii { flex-basis: 100%; padding: 0.7rem 1rem; font-size: 1rem; }
+
+      .cheer-counter { margin-top: 0.8rem; font-size: 0.85rem; }
+
+      footer { margin-top: 0.9rem; font-size: 0.8rem; }
+    }
+
+    /* Móvil en horizontal: logo más pequeño */
+    @media (max-height: 520px) and (orientation: landscape) {
+      .logo-frame { width: min(180px, 40vh); margin-bottom: 1rem; }
+    }
+
+    /* Respeto a quien prefiere menos movimiento */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
       }
-      h1 {
-        font-size: 1.9rem;
-      }
-      .sticker {
-        font-size: 1.1rem;
-        padding: 0.4rem 0.7rem;
-      }
-      .st-sushi { top: 3%; right: 4%; }
-      .st-dog { bottom: 3%; left: 4%; }
-      .st-heart { top: 3%; left: 4%; }
-      .st-game { bottom: 3%; right: 4%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- CIELO CON NUBES ANIMADAS -->
-  <div class="sky-container">
+  <!-- Decoración (oculta para lectores de pantalla) -->
+  <div class="sky-container" aria-hidden="true">
     <div class="cloud cloud-1"></div>
     <div class="cloud cloud-2"></div>
     <div class="cloud cloud-3"></div>
   </div>
 
-  <!-- SUSHIS FLOTANTES -->
-  <div class="sushi-float-container">
+  <div class="sushi-float-container" aria-hidden="true">
     <div class="floating-sushi sushi-item-1">🍣</div>
     <div class="floating-sushi sushi-item-2">🍙</div>
     <div class="floating-sushi sushi-item-3">🍱</div>
@@ -574,163 +562,184 @@
     <div class="floating-sushi sushi-item-5">🍤</div>
   </div>
 
-  <!-- DECORACIÓN BRILLOS -->
-  <div class="spark" style="top: 18%; left: 24%;">✦</div>
-  <div class="spark" style="top: 25%; right: 22%; animation-delay: 0.8s;">✨</div>
-  <div class="spark" style="bottom: 22%; left: 20%; animation-delay: 1.2s;">★</div>
-  <div class="spark" style="bottom: 28%; right: 25%; animation-delay: 0.4s;">✦</div>
+  <div class="spark" style="top: 18%; left: 24%;" aria-hidden="true">✦</div>
+  <div class="spark" style="top: 25%; right: 22%; animation-delay: 0.8s;" aria-hidden="true">✨</div>
+  <div class="spark" style="bottom: 22%; left: 20%; animation-delay: 1.2s;" aria-hidden="true">★</div>
+  <div class="spark" style="bottom: 28%; right: 25%; animation-delay: 0.4s;" aria-hidden="true">✦</div>
 
-  <!-- STICKERS INTERACTIVOS DE ESQUINAS -->
-  <div class="sticker st-heart" title="¡Mucho amor kawaii!" onclick="burst(event, ['💖', '💕', '🌸'])">
-    💖 <span>Kawaii</span>
-  </div>
-
-  <div class="sticker st-sushi" title="¡Sushi con patitas!" onclick="burst(event, ['🍣', '🥢', '🍙'])">
-    🍣🐾 <span>Suchi</span>
-  </div>
-
-  <div class="sticker st-game" title="¡Muchos juegos en camino!" onclick="burst(event, ['🎮', '🕹️', '⭐'])">
-    🎮 <span>Juegos</span>
-  </div>
-
-  <div class="sticker st-dog" title="¡Un perrito feliz!" onclick="burst(event, ['🐶', '🐾', '🦴'])">
-    🐶 <span>Perrito</span>
-  </div>
-
-  <!-- TARJETA CENTRAL TIPO TOONFOLIO -->
+  <!-- TARJETA CENTRAL -->
   <main class="main-card">
-    
-    <!-- BADGE SUPERIOR -->
+
     <div class="tag-badge">
-      <span>🚀</span> En Construcción por Suchiuchi
+      <span aria-hidden="true">🚀</span> En Construcción por Suchiuchi
     </div>
 
-    <!-- LOGO FLOTANTE LIMPIO -->
     <div class="logo-frame">
-      <img 
-        src="./logo-suchiuchi.png" 
-        alt="Logo de Suchiuchi" 
-        class="logo-img" 
+      <img
+        src="./logo-suchiuchi.png"
+        alt="Logo de Suchiuchi"
+        class="logo-img"
         id="suchiLogo"
+        width="340"
+        height="340"
+        decoding="async"
         title="¡Haz clic en mí!"
       />
     </div>
 
-    <!-- TÍTULOS -->
     <h1>suchiuchi.me</h1>
     <p class="subtitle">
-      Mi propio rincón kawaii de <span>videojuegos</span><br>
+      Mi propio rincón kawaii de <span>videojuegos</span>
     </p>
 
-    <!-- BARRA DE PREPARACIÓN -->
     <div class="status-box">
       <div class="status-labels">
         <span>🍙 Cocinando juegos divertidos...</span>
         <span id="percentText">85%</span>
       </div>
-      <div class="progress-bar-bg">
+      <div class="progress-bar-bg" role="progressbar" aria-label="Progreso de la web" aria-valuemin="0" aria-valuemax="100" aria-valuenow="85" id="progressWrap">
         <div class="progress-bar-fill" id="progressBar"></div>
       </div>
     </div>
 
-    <!-- BOTONERA INTERACTIVA -->
     <div class="button-group">
-      <button class="btn-kawaii btn-primary" id="btnCheer">
-        <span>✨</span> ¡Mandar Cariño!
+      <button type="button" class="btn-kawaii btn-primary" id="btnCheer">
+        <span aria-hidden="true">✨</span> ¡Mandar Cariño!
       </button>
-      <button class="btn-kawaii btn-secondary" id="btnSound">
-        <span>🔔</span> Avisadme al abrir
+      <button type="button" class="btn-kawaii btn-secondary" id="btnFav">
+        <span aria-hidden="true">📌</span> Guárdanos en favoritos
       </button>
     </div>
 
-    <div class="cheer-counter">
+    <div class="cheer-counter" aria-live="polite">
       Has mandado <strong id="cheerCount">0</strong> abrazos kawaii a Suchiuchi 🍣💕
     </div>
 
   </main>
 
-  <!-- PIE DE PÁGINA -->
+  <!-- STICKERS -->
+  <div class="stickers">
+    <button type="button" class="sticker st-heart" data-emojis="💖,💕,🌸" title="¡Mucho amor kawaii!">
+      <span aria-hidden="true">💖</span> <span>Kawaii</span>
+    </button>
+    <button type="button" class="sticker st-sushi" data-emojis="🍣,🥢,🍙" title="¡Sushi con patitas!">
+      <span aria-hidden="true">🍣🐾</span> <span>Suchi</span>
+    </button>
+    <button type="button" class="sticker st-game" data-emojis="🎮,🕹️,⭐" title="¡Muchos juegos en camino!">
+      <span aria-hidden="true">🎮</span> <span>Juegos</span>
+    </button>
+    <button type="button" class="sticker st-dog" data-emojis="🐶,🐾,🦴" title="¡Un perrito feliz!">
+      <span aria-hidden="true">🐶</span> <span>Perrito</span>
+    </button>
+  </div>
+
   <footer>
-    <span>💖</span> Hecho con ilusión por Papá y Suchiuchi • 2026
+    <span aria-hidden="true">💖</span> Hecho con ilusión por Papá y Suchiuchi • 2026
   </footer>
 
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
   <script>
-    // ELEMENTOS
     const btnCheer = document.getElementById('btnCheer');
-    const btnSound = document.getElementById('btnSound');
+    const btnFav = document.getElementById('btnFav');
     const cheerCountEl = document.getElementById('cheerCount');
     const progressBar = document.getElementById('progressBar');
+    const progressWrap = document.getElementById('progressWrap');
     const percentText = document.getElementById('percentText');
     const logoImg = document.getElementById('suchiLogo');
+    const toast = document.getElementById('toast');
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const MAX_PARTICLES = 60;
 
     let cheerCount = 0;
     let currentPercent = 85;
+    let toastTimer;
 
-    // BOTÓN: MANDAR CARIÑO (EXPLOSIÓN DE EMOJIS + SUBE LA BARRA)
+    // Aviso pequeño en pantalla (sustituye al alert)
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    // Explosión de emojis
+    function burst(event, emojiList) {
+      if (reduceMotion.matches) return;
+
+      const rect = event.currentTarget.getBoundingClientRect();
+      // Un clic con teclado trae clientX = 0: usamos el centro del elemento
+      const fromKeyboard = !event.clientX && !event.clientY;
+      const originX = fromKeyboard ? rect.left + rect.width / 2 : event.clientX;
+      const originY = fromKeyboard ? rect.top + rect.height / 2 : event.clientY;
+
+      const free = MAX_PARTICLES - document.querySelectorAll('.burst-emoji').length;
+      const count = Math.max(0, Math.min(12, free));
+
+      for (let i = 0; i < count; i++) {
+        const span = document.createElement('span');
+        span.className = 'burst-emoji';
+        span.setAttribute('aria-hidden', 'true');
+        span.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = 60 + Math.random() * 100;
+
+        span.style.left = originX + 'px';
+        span.style.top = originY + 'px';
+        span.style.setProperty('--dx', Math.cos(angle) * distance + 'px');
+        span.style.setProperty('--dy', (Math.sin(angle) * distance - 40) + 'px');
+        span.style.setProperty('--dr', (Math.random() * 360 - 180) + 'deg');
+
+        document.body.appendChild(span);
+        setTimeout(() => span.remove(), 1200);
+      }
+    }
+
+    function wiggleLogo() {
+      if (reduceMotion.matches) return;
+      logoImg.classList.remove('wiggle');
+      void logoImg.offsetWidth; // reinicia la animación
+      logoImg.classList.add('wiggle');
+    }
+    logoImg.addEventListener('animationend', () => logoImg.classList.remove('wiggle'));
+
+    // Mandar cariño
     btnCheer.addEventListener('click', (e) => {
       cheerCount++;
       cheerCountEl.textContent = cheerCount;
 
-      // Efecto sonoro visual / confeti
-      const emojis = ['💖', '🍣', '🌸', '✨', '🐾', '🐶', '🍙', '⭐', '🦄'];
-      burst(e, emojis);
+      burst(e, ['💖', '🍣', '🌸', '✨', '🐾', '🐶', '🍙', '⭐', '🦄']);
 
-      // Subir ligeramente la barra de energía
       if (currentPercent < 100) {
         currentPercent = Math.min(100, currentPercent + 1);
         progressBar.style.width = currentPercent + '%';
         percentText.textContent = currentPercent + '%';
+        progressWrap.setAttribute('aria-valuenow', currentPercent);
       }
 
-      // Pequeño temblor al logo
-      logoImg.style.transform = 'scale(1.15) rotate(' + (Math.random() > 0.5 ? 8 : -8) + 'deg)';
-      setTimeout(() => {
-        logoImg.style.transform = '';
-      }, 250);
+      wiggleLogo();
     });
 
-    // BOTÓN: AVISADME
-    btnSound.addEventListener('click', (e) => {
-      burst(e, ['💌', '🔔', '✨', '🎉']);
-      alert('¡Anotado! 💌 Guarda suchiuchi.me en tus favoritos porque dentro de muy poco estará lista la sala de juegos.');
+    // Guardar en favoritos (sin datos personales)
+    btnFav.addEventListener('click', (e) => {
+      burst(e, ['💌', '📌', '✨', '🎉']);
+      const mac = /Mac|iPhone|iPad/i.test(navigator.platform || navigator.userAgent);
+      showToast('¡Anotado! 💌 Pulsa ' + (mac ? '⌘' : 'Ctrl') + '+D (o el menú del navegador) para guardarnos en favoritos.');
     });
 
-    // CLIC EN EL LOGO
+    // Logo
     logoImg.addEventListener('click', (e) => {
       burst(e, ['🍣', '🍙', '✨', '💖']);
+      wiggleLogo();
     });
 
-    // FUNCIÓN DE EXPLOSIÓN DE EMOJIS (PARTÍCULAS)
-    function burst(event, emojiList) {
-      const rect = event.target.getBoundingClientRect();
-      const originX = event.clientX || (rect.left + rect.width / 2);
-      const originY = event.clientY || (rect.top + rect.height / 2);
-
-      const count = 12;
-      for (let i = 0; i < count; i++) {
-        const span = document.createElement('span');
-        span.className = 'burst-emoji';
-        span.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
-
-        const angle = Math.random() * 2 * Math.PI;
-        const distance = 80 + Math.random() * 120;
-        const dx = Math.cos(angle) * distance + 'px';
-        const dy = (Math.sin(angle) * distance - 40) + 'px';
-        const dr = (Math.random() * 360 - 180) + 'deg';
-
-        span.style.left = originX + 'px';
-        span.style.top = originY + 'px';
-        span.style.setProperty('--dx', dx);
-        span.style.setProperty('--dy', dy);
-        span.style.setProperty('--dr', dr);
-
-        document.body.appendChild(span);
-
-        setTimeout(() => {
-          span.remove();
-        }, 1200);
-      }
-    }
+    // Stickers
+    document.querySelectorAll('.sticker').forEach((btn) => {
+      const emojis = btn.dataset.emojis.split(',');
+      btn.addEventListener('click', (e) => burst(e, emojis));
+    });
   </script>
 </body>
 </html>
